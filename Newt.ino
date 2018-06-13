@@ -2,7 +2,7 @@
 //
 //云台驱动程序
 //范子睿
-//版本 2.1.0
+//版本 2.1.1
 
 #include <Servo.h>
 Servo servoT;
@@ -18,12 +18,12 @@ int dirP;
 int t;
 int p;
 
-const int tO = 60;
-const int pO = 90;
-const int tMax = tO + 80;
-const int tMin = tO - 10;
-const int pMax = pO + 60;
-const int pMin = pO - 60;
+const int t0 = 60;
+const int p0 = 90;
+const int tMax = t0 + 80;
+const int tMin = t0 - 10;
+const int pMax = p0 + 60;
+const int pMin = p0 - 60;
 
 void setup() {
   servoT.attach(10);
@@ -33,8 +33,8 @@ void setup() {
 
   Serial.begin(9600);
  
-  servoT.write(t);
-  servoP.write(p);  
+  servoT.write(t0);
+  servoP.write(p0);  
 }
 
 void loop() {
@@ -42,8 +42,8 @@ void loop() {
     input = Serial.read();
 
     if (input == 5) {
-      t = tO;
-      p = pO;
+      t = t0;
+      p = p0;
     }
     else if (input == 9) {
       digitalWrite(L, HIGH);
