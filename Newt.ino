@@ -2,7 +2,7 @@
 //
 //云台驱动程序
 //范子睿
-//版本 2.1.1
+//版本 2.2.1
 
 #include <Servo.h>
 Servo servoT;
@@ -20,7 +20,9 @@ int p;
 
 const int t0 = 60;
 const int p0 = 90;
-const int tMax = t0 + 80;
+const int tR = 100;
+const int pR = 120;
+const int tMax = t0 + 90;
 const int tMin = t0 - 10;
 const int pMax = p0 + 60;
 const int pMin = p0 - 60;
@@ -49,16 +51,26 @@ void loop() {
       digitalWrite(L, HIGH);
     }
     else {
-      dirT = input % 10;
-      dirP = input / 10;
+      if (input < 100) {
+        dirT = input % 10;
+        dirP = input / 10;
 
-      t += dirT - 2;
-      p += dirP - 2;
+        t += dirT - 2;
+        p += dirP - 2;
 
-      t = constrain(t, tMin, tMax);
-      p = constrain(p, pMin, pMax);
+        t = constrain(t, tMin, tMax);
+        p = constrain(p, pMin, pMax);
 
-      digitalWrite(L, LOW);
+        digitalWrite(L, LOW);
+      }
+      else {
+        input -= 100;
+        
+        t = tMin + tR * (input % 10) / 10;
+        p = pMin + pR * (input / 10) / 10;
+        
+        digitalWrite(L, HIGH);
+      }
     }
 
     servoT.write(t);
