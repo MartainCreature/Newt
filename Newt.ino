@@ -2,7 +2,7 @@
 //
 //云台驱动程序
 //范子睿
-//版本 2.2.1
+//版本 3.0.1
 
 #include <Servo.h>
 Servo servoT;
@@ -11,9 +11,6 @@ Servo servoP;
 #define L 9
 
 byte input;
-
-int dirT;
-int dirP;
 
 int t;
 int p;
@@ -51,12 +48,11 @@ void loop() {
       digitalWrite(L, HIGH);
     }
     else {
-      if (input < 100) {
-        dirT = input % 10;
-        dirP = input / 10;
-
-        t += dirT - 2;
-        p += dirP - 2;
+      if (input >= 100) {
+        input -= 100;
+       
+        t += input % 10 - 1;
+        p += input / 10 - 1;
 
         t = constrain(t, tMin, tMax);
         p = constrain(p, pMin, pMax);
@@ -64,8 +60,6 @@ void loop() {
         digitalWrite(L, LOW);
       }
       else {
-        input -= 100;
-        
         t = tMin + tR * (input % 10) / 10;
         p = pMin + pR * (input / 10) / 10;
         
