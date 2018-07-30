@@ -2,7 +2,7 @@
 //
 //云台驱动程序
 //范子睿
-//版本 3.0.1
+//版本 3.0.2
 
 #include <Servo.h>
 Servo servoT;
@@ -51,8 +51,12 @@ void loop() {
       if (input >= 100) {
         input -= 100;
        
-        t += input % 10 - 1;
-        p += input / 10 - 1;
+        if (input / 10 == 2) {
+          t += input % 10 - 1;
+        }
+        else {
+          p += input % 10 - 1;
+        }
 
         t = constrain(t, tMin, tMax);
         p = constrain(p, pMin, pMax);
