@@ -2,7 +2,7 @@
 //
 //云台驱动程序
 //范子睿
-//版本 3.0.2
+//版本 3.0.4
 
 #include <Servo.h>
 Servo servoT;
@@ -18,11 +18,11 @@ int p;
 const int t0 = 60;
 const int p0 = 90;
 const int tR = 100;
-const int pR = 120;
+const int pR = 140;
 const int tMax = t0 + 90;
-const int tMin = t0 - 10;
+const int tMin = tMax - tR;
 const int pMax = p0 + 60;
-const int pMin = p0 - 60;
+const int pMin = pMax - pR;
 
 void setup() {
   servoT.attach(10);
